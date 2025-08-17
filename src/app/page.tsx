@@ -1,33 +1,33 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+// import { motion } from "framer-motion";
+// import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [scrollPct, setScrollPct] = useState(0);
+  // const [scrollPct, setScrollPct] = useState(0);
   // Function to calculate the scroll percentage
   // Returns a value between 0 and 100
   // 0% means at the top, 100% means at the bottom
   // Uses window.scrollY and document.documentElement.scrollHeight
   // Handles edge cases like no scrolling or very short pages
 
-  const getScrollPercentage = () => {
-    if (typeof window === "undefined") return 0;
-    const scrollTop = window.scrollY || 0;
-    const windowHeight = window.innerHeight || 1;
-    const documentHeight = document?.documentElement?.scrollHeight || 1;
-    const denom = Math.max(1, documentHeight - windowHeight);
-    const pct = (scrollTop / denom) * 100;
-    return Math.min(100, Math.max(0, pct));
-  };
+  // const getScrollPercentage = () => {
+  //   if (typeof window === "undefined") return 0;
+  //   const scrollTop = window.scrollY || 0;
+  //   const windowHeight = window.innerHeight || 1;
+  //   const documentHeight = document?.documentElement?.scrollHeight || 1;
+  //   const denom = Math.max(1, documentHeight - windowHeight);
+  //   const pct = (scrollTop / denom) * 100;
+  //   return Math.min(100, Math.max(0, pct));
+  // };
 
-  useEffect(() => {
-    const handleScroll = () => setScrollPct(getScrollPercentage());
-    // set initial value on mount
-    setScrollPct(getScrollPercentage());
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => setScrollPct(getScrollPercentage());
+  //   // set initial value on mount
+  //   setScrollPct(getScrollPercentage());
+  //   window.addEventListener("scroll", handleScroll, { passive: true });
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   return (
     // <div>
