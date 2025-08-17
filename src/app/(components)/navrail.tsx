@@ -34,7 +34,7 @@ const SOCIALS = [
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/in/yourhandle",
+    href: "https://www.linkedin.com/in/vaibhavkukreti/",
     icon: <Linkedin className="h-5 w-5" aria-hidden />,
   },
   {
