@@ -1,13 +1,16 @@
-export default function BlogPage() {
-  return (
-    // <div className="flex flex-col items-center justify-center h-screen">
-    //   <h1 className="text-4xl font-bold mb-4">Blog</h1>
-    //   <p className="text-lg">This is the blog page.</p>
-    // </div>
+import { redirect } from "next/navigation";
+import { getAllPosts } from "@/lib/md";
 
-    // This is a placeholder for the blog page
-    <div className=" items-center justify-center h-screen flex">
-      Page is under construction
+export const dynamic = "force-static";
+
+export default function BlogPage() {
+  const posts = getAllPosts();
+  if (posts.length > 0) {
+    redirect(`/blog/${posts[0].slug}`);
+  }
+  return (
+    <div className="flex min-h-[50vh] flex-col items-center justify-center text-center">
+      <p className="text-white/60">No posts yet.</p>
     </div>
   );
 }

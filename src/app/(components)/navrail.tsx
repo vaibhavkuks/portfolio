@@ -65,7 +65,7 @@ export default function NavRail() {
             layout
             layoutId="nav-active-selector"
             aria-hidden
-            className="absolute left-3 top-0 z-0 rounded-lg bg-white/30 shadow-[0_0_40px_rgba(255,255,255,0.45)]"
+            className="absolute left-3 top-0 z-0 rounded-lg bg-white/90 shadow-[0_0_40px_rgba(255,255,255,0.45)]"
             style={{ width: 40, height: 40 }}
             initial={false}
             animate={{ y: activeIndex * 44, opacity: 1 }}
@@ -89,7 +89,7 @@ export default function NavRail() {
                   className={`peer flex h-10 w-10 items-center justify-center rounded-md outline-none transition-colors ${
                     active
                       ? "text-black"
-                      : "text-white/75 hover:bg-white/5 hover:text-white"
+                      : "text-white/75 hover:bg-white/20 hover:text-white"
                   }`}
                   title={item.label}
                 >

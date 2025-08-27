@@ -24,3 +24,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Typography defaults for markdown via Tailwind Typography */
+.prose {
+  max-width: 65ch;
+}
+.prose pre {
+  overflow-x: auto;
+}
+.prose code::before,
+.prose code::after {
+  content: "";
+}
