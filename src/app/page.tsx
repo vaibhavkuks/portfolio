@@ -1,57 +1,76 @@
-"use client";
+import React from 'react';
 
-// import { motion } from "framer-motion";
-// import { useEffect, useState } from "react";
-
-export default function Home() {
-  // const [scrollPct, setScrollPct] = useState(0);
-  // Function to calculate the scroll percentage
-  // Returns a value between 0 and 100
-  // 0% means at the top, 100% means at the bottom
-  // Uses window.scrollY and document.documentElement.scrollHeight
-  // Handles edge cases like no scrolling or very short pages
-
-  // const getScrollPercentage = () => {
-  //   if (typeof window === "undefined") return 0;
-  //   const scrollTop = window.scrollY || 0;
-  //   const windowHeight = window.innerHeight || 1;
-  //   const documentHeight = document?.documentElement?.scrollHeight || 1;
-  //   const denom = Math.max(1, documentHeight - windowHeight);
-  //   const pct = (scrollTop / denom) * 100;
-  //   return Math.min(100, Math.max(0, pct));
-  // };
-
-  // useEffect(() => {
-  //   const handleScroll = () => setScrollPct(getScrollPercentage());
-  //   // set initial value on mount
-  //   setScrollPct(getScrollPercentage());
-  //   window.addEventListener("scroll", handleScroll, { passive: true });
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
-
+const Portfolio = () => {
   return (
-    // <div>
-    //   <div className="min-h-screen flex flex-col items-center justify-center text-white">
-    //     <div className="h-screen items-center justify-center">
-    //       <h1 className="text-4xl">{"Hello, I'm Vaibhav Kukreti"}</h1>
-    //     </div>
-    //     {/* show this only when the user has not scrolled */}
-    //     <motion.div
-    //       className="bottom-4 absolute"
-    //       style={{
-    //         translateY: -scrollPct * 2,
-    //         opacity: 1 - scrollPct / 100,
-    //         transitionDuration: "0.2s",
-    //       }}
-    //     >
-    //       Scroll to see what I do
-    //     </motion.div>
-    //   </div>
-    // </div>
+    <div className="bg-gray-100 min-h-screen font-sans">
+      <div className="container mx-auto p-8">
 
-    // This is a placeholder for the home page
-    <div className=" items-center justify-center h-screen flex">
-      Page is under construction
+        {/* Header */}
+        <header className="text-center mb-12">
+          <h1 className="text-5xl font-bold text-gray-800">John Doe</h1>
+          <p className="text-xl text-gray-600 mt-2">Aspiring Software Developer</p>
+        </header>
+
+        {/* About Me Section */}
+        <section id="about" className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-800 border-b-2 border-gray-300 pb-2 mb-6">About Me</h2>
+          <p className="text-lg text-gray-700 leading-relaxed">
+            Hello! I'm John, a passionate and creative software developer with a love for building beautiful and functional applications. I have a background in computer science and enjoy working on challenging projects that allow me to learn and grow. When I'm not coding, I enjoy hiking, reading, and exploring new technologies.
+          </p>
+        </section>
+
+        {/* Projects Section */}
+        <section id="projects" className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-800 border-b-2 border-gray-300 pb-2 mb-6">Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Project 1 */}
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">Project One</h3>
+              <p className="text-gray-700">
+                A brief description of the first project. It was built using React and Node.js, focusing on creating a seamless user experience.
+              </p>
+            </div>
+            {/* Project 2 */}
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">Project Two</h3>
+              <p className="text-gray-700">
+                This project involved developing a mobile application for both iOS and Android. The main goal was to solve a real-world problem.
+              </p>
+            </div>
+            {/* Project 3 */}
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">Project Three</h3>
+              <p className="text-gray-700">
+                An e-commerce website with a complete backend for managing products, orders, and users. Built with a modern tech stack.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Skills Section */}
+        <section id="skills" className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-800 border-b-2 border-gray-300 pb-2 mb-6">Skills</h2>
+          <div className="flex flex-wrap">
+            <span className="bg-gray-300 text-gray-800 text-lg font-medium mr-2 mb-2 px-4 py-2 rounded-full">JavaScript</span>
+            <span className="bg-gray-300 text-gray-800 text-lg font-medium mr-2 mb-2 px-4 py-2 rounded-full">React</span>
+            <span className="bg-gray-300 text-gray-800 text-lg font-medium mr-2 mb-2 px-4 py-2 rounded-full">Node.js</span>
+            <span className="bg-gray-300 text-gray-800 text-lg font-medium mr-2 mb-2 px-4 py-2 rounded-full">Python</span>
+            <span className="bg-gray-300 text-gray-800 text-lg font-medium mr-2 mb-2 px-4 py-2 rounded-full">SQL</span>
+            <span className="bg-gray-300 text-gray-800 text-lg font-medium mr-2 mb-2 px-4 py-2 rounded-full">HTML & CSS</span>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="text-center">
+          <h2 className="text-3xl font-bold text-gray-800 border-b-2 border-gray-300 pb-2 mb-6">Contact</h2>
+          <p className="text-lg text-gray-700">
+            Feel free to reach out to me at <a href="mailto:john.doe@example.com" className="text-blue-600 hover:underline">john.doe@example.com</a>.
+          </p>
+        </section>
+
+      </div>
     </div>
   );
-}
+};
+
+export default Portfolio;
