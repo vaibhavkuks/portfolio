@@ -1,3 +1,4 @@
+import { readFile, readdir } from "fs/promises";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -17,28 +18,49 @@ export type BlogPost = {
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
-export function getAllPosts(): BlogPost[] {
-  const files = fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith(".md"));
-  const posts = files.map((file) => {
-    const slug = file.replace(/\.md$/, "");
-    const fullPath = path.join(BLOG_DIR, file);
-    const raw = fs.readFileSync(fullPath, "utf8");
-    const { content, data } = matter(raw);
-    return {
-      slug,
-      content,
-      data: data as BlogFrontmatter,
-    };
-  });
-  return posts.sort((a, b) =>
-    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-  );
+// Server-only function for getting all posts
+export async function getAllPosts(): Promise<BlogPost[]> {
+  try {
+    const files = await readdir(BLOG_DIR);
+    const mdFiles = files.filter((f) => f.endsWith(".md"));
+
+    const posts = await Promise.all(
+      mdFiles.map(async (file) => {
+        const slug = file.replace(/\.md$/, "");
+        const fullPath = path.join(BLOG_DIR, file);
+        const raw = await readFile(fullPath, "utf8");
+        const { content, data } = matter(raw);
+        return {
+          slug,
+          content,
+          data: data as BlogFrontmatter,
+        };
+      })
+    );
+
+    return posts.sort(
+      (a, b) =>
+        new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+    );
+  } catch (error) {
+    console.error("Error reading blog posts:", error);
+    return [];
+  }
 }
 
-export function getPostBySlug(slug: string): BlogPost | null {
-  const fullPath = path.join(BLOG_DIR, `${slug}.md`);
-  if (!fs.existsSync(fullPath)) return null;
-  const raw = fs.readFileSync(fullPath, "utf8");
-  const { content, data } = matter(raw);
-  return { slug, content, data: data as BlogFrontmatter };
+// Server-only function for getting a single post
+export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+  try {
+    const fullPath = path.join(BLOG_DIR, `${slug}.md`);
+
+    // Check if file exists
+    if (!fs.existsSync(fullPath)) return null;
+
+    const raw = await readFile(fullPath, "utf8");
+    const { content, data } = matter(raw);
+    return { slug, content, data: data as BlogFrontmatter };
+  } catch (error) {
+    console.error(`Error reading post ${slug}:`, error);
+    return null;
+  }
 }

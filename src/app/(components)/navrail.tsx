@@ -46,7 +46,8 @@ const SOCIALS = [
 
 export default function NavRail() {
   const pathname = usePathname();
-  // Active index among top items (Portfolio/Blog)
+
+  // Calculate active index for animation
   const activeIndex = items.findIndex((item) =>
     item.href === "/"
       ? pathname === "/"
@@ -56,24 +57,32 @@ export default function NavRail() {
   return (
     <nav
       aria-label="Primary"
-      className="sticky top-0 z-30 h-screen  w-16 min-w-16 border-r border-white/7 bg-white/5 backdrop-blur-sm  py-4 text-white overflow-visible"
+      className="sticky top-0 z-30 h-screen  w-16 min-w-16 border-r
+border-white/7 bg-white/5 backdrop-blur-md  py-4 text-white overflow-visible"
     >
-      {/* Animated active selector for top items (single element to avoid SSR mismatch) */}
-      <div className="relative overflow-x-clip">
+      {/* Animated active indicator - right border */}
+      <div className="relative">
         {activeIndex >= 0 && (
           <motion.div
+            key={`indicator-${activeIndex}`}
             layout
-            layoutId="nav-active-selector"
+            layoutId="nav-active-indicator"
             aria-hidden
-            className="absolute left-3 top-0 z-0 rounded-lg bg-white/90 shadow-[0_0_40px_rgba(255,255,255,0.45)]"
-            style={{ width: 40, height: 40 }}
-            initial={false}
-            animate={{ y: activeIndex * 44, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 450, damping: 52 }}
+            className="absolute right-0 top-0 w-0.5 h-[52px] bg-lime-300 z-20"
+            initial={{
+              y: activeIndex * 52,
+            }}
+            animate={{
+              y: activeIndex * 52,
+            }}
+            transition={{
+              y: { type: "spring", stiffness: 500, damping: 30 },
+            }}
           />
         )}
       </div>
-      <ul className="flex flex-col gap-1">
+
+      <ul className="flex flex-col">
         {items.map((item, i) => {
           const active =
             item.href === "/"
@@ -82,20 +91,18 @@ export default function NavRail() {
 
           return (
             <li key={`top-${item.href || item.label || i}`}>
-              <div className="relative z-10 group flex justify-center">
+              <div className="relative z-10 group">
                 <Link
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`peer flex h-10 w-10 items-center justify-center rounded-md outline-none transition-colors ${
-                    active
-                      ? "text-black"
-                      : "text-white/75 hover:bg-white/20 hover:text-white"
+                  className={`peer flex w-full text-[12px] items-center justify-center outline-none transition-colors hover:bg-white/20 hover:text-white py-3 ${
+                    active ? "text-lime-300" : "text-white/75"
                   }`}
                   title={item.label}
                 >
                   {/* Icon */}
                   <span
-                    className={active ? "text-black" : "text-white/90"}
+                    className={active ? "text-lime-300" : "text-white/90"}
                     aria-hidden
                   >
                     {item.icon}
@@ -121,18 +128,18 @@ export default function NavRail() {
       </ul>
 
       {/* Bottom actions: socials + mail */}
-      <div className="absolute bottom-4 left-0 w-full space-y-2">
+      <div className="absolute bottom-4 left-0 w-full">
         {SOCIALS.map((s, i) => (
           <div
             key={`social-${s.href || s.label || i}`}
-            className="relative group flex justify-center"
+            className="relative group"
           >
             <a
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={s.label}
-              className="peer flex h-10 w-10 items-center justify-center rounded-md text-white/80 hover:bg-white/10 hover:text-white outline-none focus:ring-2 focus:ring-white/40"
+              className="peer flex w-full items-center justify-center text-white/80 hover:bg-white/20 hover:text-white outline-none focus:ring-2 focus:ring-white/40 transition-colors py-4"
             >
               {s.icon}
             </a>
@@ -148,11 +155,11 @@ export default function NavRail() {
             </span>
           </div>
         ))}
-        <div className="relative group flex justify-center">
+        <div className="relative group">
           <a
             href={`mailto:${EMAIL}`}
             aria-label={`Email ${EMAIL}`}
-            className="peer flex h-10 w-10 items-center justify-center rounded-md text-white/80 hover:bg-white/10 hover:text-white outline-none focus:ring-2 focus:ring-white/40"
+            className="peer flex w-full items-center justify-center text-white/80 hover:bg-white/20 hover:text-white outline-none focus:ring-2 focus:ring-white/40 transition-colors py-4"
           >
             <Mail className="h-5 w-5" aria-hidden />
           </a>

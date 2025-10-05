@@ -3,8 +3,8 @@ import { getAllPosts } from "@/lib/md";
 
 export const dynamic = "force-static";
 
-export default function BlogPage() {
-  const posts = getAllPosts();
+export default async function BlogPage() {
+  const posts = await getAllPosts();
   if (posts.length > 0) {
     redirect(`/blog/${posts[0].slug}`);
   }

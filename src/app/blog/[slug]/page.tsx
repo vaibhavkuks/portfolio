@@ -7,12 +7,17 @@ import remarkGfm from "remark-gfm";
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
   return posts.map((p: BlogPost) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = getPostBySlug(params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
   if (!post) return {};
   return {
     title: post.data.title,
@@ -20,13 +25,20 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug);
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
   if (!post) return notFound();
 
   return (
     <article className="prose prose-invert max-w-none">
-      <h1 className="mb-2 text-3xl font-bold leading-tight">{post.data.title}</h1>
+      <h1 className="mb-2 text-3xl font-bold leading-tight">
+        {post.data.title}
+      </h1>
       <p className="mb-8 text-sm text-white/50">
         {new Date(post.data.date).toLocaleString(undefined, {
           year: "numeric",
@@ -36,7 +48,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           minute: "2-digit",
         })}
       </p>
-  <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
     </article>
   );
 }
