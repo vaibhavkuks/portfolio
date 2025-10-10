@@ -161,7 +161,6 @@ export default function Home() {
     [0, 0.3, 0.5],
     [1, 0.5, 0]
   );
-  const headingBlur = useTransform(scrollYProgress, [0, 0.5], [0, 20]);
 
   // Projects animations
   const projectsY = useTransform(scrollYProgress, [0, 0.5, 1], [300, 0, 0]);
@@ -183,7 +182,7 @@ export default function Home() {
 
       {/* Hero Section - Slides up and blurs out */}
       <motion.div
-        className="min-h-screen flex items-center justify-center sticky top-0 z-10"
+        className="min-h-[calc(100vh-150pt)] flex items-center justify-center sticky top-0 z-10"
         style={{
           y: headingY,
           opacity: headingOpacity,
@@ -202,6 +201,16 @@ export default function Home() {
           opacity: 1,
         }}
       >
+        {/* SVG Shape at the top */}
+        <div className="absolute top-0 left-0 w-full -translate-y-full">
+          <img
+            src="./assets/swipe_shape.svg"
+            alt=""
+            className="w-full h-auto"
+            style={{ display: "block" }}
+          />
+        </div>
+
         <div className="flex mx-auto justify-center items-centerj min-w-full">
           {/* Projects Section */}
           <div className="mb-20">
